@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecionando...</title>
+    <script>
+      const links = [
+        {
+          url: "https://api.whatsapp.com/send/?phone=55489655041&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
+          label: "Vendedor 1"
+        },
+        {
+          url: "https://api.whatsapp.com/send/?phone=55489684565&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
+          label: "Vendedor 2"
+        },
+        {
+          url: "https://api.whatsapp.com/send/?phone=5548996526724&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
+          label: "Vendedor 3"
+        },
+        {
+          url: "https://api.whatsapp.com/send/?phone=554896525041&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
+          label: "Vendedor 4"
+        }
+      ];
+
+      // Recupera o índice atual do localStorage
+      let currentIndex = parseInt(localStorage.getItem("last_index") || "0");
+
+      // Garante que está dentro do limite do array
+      if (currentIndex >= links.length) currentIndex = 0;
+
+      const linkSelecionado = links[currentIndex];
+
+      // Atualiza o índice para o próximo da fila
+      localStorage.setItem("last_index", (currentIndex + 1).toString());
+
+      // Exibe mensagem na tela antes de redirecionar
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("info").innerHTML = `
+          Redirecionando para: <b>${linkSelecionado.label}</b><br/>
+          Este número foi o <b>${currentIndex + 1}º</b> da fila.
+        `;
+        setTimeout(() => {
+          window.location.href = linkSelecionado.url;
+        }, 1500);
+      });
+    </script>
+  </head>
+  <body>
+    <p id="info">Preparando redirecionamento...</p>
+  </body>
+</html>
