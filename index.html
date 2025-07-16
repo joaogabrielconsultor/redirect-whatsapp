@@ -1,52 +1,66 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Redirecionando...</title>
-    <script>
-      const links = [
-        {
-          url: "https://api.whatsapp.com/send/?phone=55489655041&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
-          label: "Vendedor 1"
-        },
-        {
-          url: "https://api.whatsapp.com/send/?phone=55489684565&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
-          label: "Vendedor 2"
-        },
-        {
-          url: "https://api.whatsapp.com/send/?phone=5548996526724&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
-          label: "Vendedor 3"
-        },
-        {
-          url: "https://api.whatsapp.com/send/?phone=554896525041&text=%28yt%29Ol%C3%A1%21+Vi+que+posso+sacar+o+FGTS+e+quero+saber+como+funciona&type=phone_number&app_absent=0",
-          label: "Vendedor 4"
-        }
-      ];
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conectando com um especialista...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding-top: 100px;
+      color: #333;
+    }
+    .loader {
+      margin: 30px auto;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <script>
+    const vendedores = [
+      {
+        url: "https://api.whatsapp.com/send/?phone=55489655041&text=(yt)Olá! Vi que posso sacar o FGTS e quero saber como funciona&type=phone_number&app_absent=0",
+      },
+      {
+        url: "https://api.whatsapp.com/send/?phone=55489684565&text=(yt)Olá! Vi que posso sacar o FGTS e quero saber como funciona&type=phone_number&app_absent=0",
+      },
+      {
+        url: "https://api.whatsapp.com/send/?phone=5548996526724&text=(yt)Olá! Vi que posso sacar o FGTS e quero saber como funciona&type=phone_number&app_absent=0",
+      },
+      {
+        url: "https://api.whatsapp.com/send/?phone=554896525041&text=(yt)Olá! Vi que posso sacar o FGTS e quero saber como funciona&type=phone_number&app_absent=0",
+      }
+    ];
 
-      // Recupera o índice atual do localStorage
-      let currentIndex = parseInt(localStorage.getItem("last_index") || "0");
+    // Armazena o índice do próximo vendedor no localStorage
+    let proximo = parseInt(localStorage.getItem("proximo_vendedor") || "0");
+    const vendedor = vendedores[proximo];
 
-      // Garante que está dentro do limite do array
-      if (currentIndex >= links.length) currentIndex = 0;
+    // Atualiza o índice para o próximo da fila
+    const proximoIndex = (proximo + 1) % vendedores.length;
+    localStorage.setItem("proximo_vendedor", proximoIndex.toString());
 
-      const linkSelecionado = links[currentIndex];
-
-      // Atualiza o índice para o próximo da fila
-      localStorage.setItem("last_index", (currentIndex + 1).toString());
-
-      // Exibe mensagem na tela antes de redirecionar
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("info").innerHTML = `
-          Redirecionando para: <b>${linkSelecionado.label}</b><br/>
-          Este número foi o <b>${currentIndex + 1}º</b> da fila.
-        `;
-        setTimeout(() => {
-          window.location.href = linkSelecionado.url;
-        }, 1500);
-      });
-    </script>
-  </head>
-  <body>
-    <p id="info">Preparando redirecionamento...</p>
-  </body>
+    // Redireciona após 2 segundos
+    window.onload = () => {
+      setTimeout(() => {
+        window.location.href = vendedor.url;
+      }, 2000);
+    };
+  </script>
+</head>
+<body>
+  <h2>Estamos conectando você com um especialista via WhatsApp</h2>
+  <p>Aguarde um instante...</p>
+  <div class="loader"></div>
+</body>
 </html>
